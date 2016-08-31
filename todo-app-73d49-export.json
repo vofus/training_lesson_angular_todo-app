@@ -1,0 +1,84 @@
+{
+  "todos" : [ {
+    "date" : "2016-08-25T20:00:00.000Z",
+    "day" : 26,
+    "done" : false,
+    "fullDay" : true,
+    "month" : 7,
+    "name" : "Написать ToDo App на AngularJS",
+    "strDate" : "26.08.2016",
+    "year" : 2016
+  }, {
+    "date" : "2016-08-25T20:00:00.000Z",
+    "day" : 26,
+    "done" : true,
+    "fullDay" : false,
+    "month" : 7,
+    "name" : "Реализовать отображение количества незавершенных задач",
+    "strDate" : "26.08.2016",
+    "year" : 2016
+  }, {
+    "date" : "2016-08-25T20:00:00.000Z",
+    "day" : 26,
+    "done" : true,
+    "fullDay" : false,
+    "month" : 7,
+    "name" : "Реализовать простую валидацию формы",
+    "strDate" : "26.08.2016",
+    "year" : 2016
+  }, {
+    "date" : "2016-08-24T20:00:00.000Z",
+    "day" : 25,
+    "done" : true,
+    "fullDay" : false,
+    "month" : 7,
+    "name" : "Реализовать работу с сервером",
+    "strDate" : "25.08.2016",
+    "year" : 2016
+  }, {
+    "date" : "2016-08-25T20:00:00.000Z",
+    "day" : 26,
+    "done" : true,
+    "fullDay" : false,
+    "month" : 7,
+    "name" : "Реализовать сортировку по названию и дате",
+    "strDate" : "26.08.2016",
+    "year" : 2016
+  }, {
+    "date" : "2016-08-26T20:00:00.000Z",
+    "day" : 27,
+    "done" : false,
+    "fullDay" : false,
+    "month" : 7,
+    "name" : "Реализовать фильтрацию по статусу выполнено / не выполнено / все",
+    "strDate" : "27.08.2016",
+    "year" : 2016
+  }, {
+    "date" : "2016-08-23T20:00:00.000Z",
+    "day" : 24,
+    "done" : true,
+    "fullDay" : false,
+    "month" : 7,
+    "name" : "Реализовать функции добавления, удаления и редактирования записей",
+    "strDate" : "24.08.2016",
+    "year" : 2016
+  }, {
+    "date" : "2016-08-26T20:00:00.000Z",
+    "day" : 27,
+    "done" : false,
+    "fullDay" : false,
+    "month" : 7,
+    "name" : "Реализовать функцию showMore",
+    "strDate" : "27.08.2016",
+    "year" : 2016
+  }, {
+    "date" : "2016-08-19T20:00:00.000Z",
+    "day" : 20,
+    "done" : false,
+    "fullDay" : false,
+    "month" : 7,
+    "name" : "sdfgsfg",
+    "strDate" : "20.08.2016",
+    "year" : 2016
+  } ]
+}

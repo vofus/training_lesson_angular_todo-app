@@ -1,0 +1,23 @@
+.edit-form {
+    margin-top: 60px;
+}
+.counter {
+    margin: 0;
+    font-size: 2rem;
+    padding: 26px 0 14px;
+}
+.table>thead>tr>th,
+.table>tbody>tr>td {
+    vertical-align: middle;
+}
+.checkbox input[type="checkbox"].status {
+    position: static;
+    margin-left: 0;
+}
+.add-btn__col {
+    padding: 0;
+}
+.btn__show-more {
+    width: 100%;
+    margin-bottom: 20px;
+}

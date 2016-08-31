@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head lang="en">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Angular with Webpack</title>
+	<link rel="stylesheet" type="text/css" href="styles/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="styles/main.css">
+</head>
+<body>
+  
+	<div id="todoApp" ng-controller="MainCtrl">
+		<div class="container">
+			<div class="col-md-10 col-md-offset-1">
+				<div class="row" ng-if="!showForm">
+					<div class="col-md-6">
+						<h1>My ToDo App</h1>
+					</div>
+					<div class="col-md-6">
+						<p class="counter text-right">
+							Незавершенных задач: <span ng-bind="(todoArr | filter : {done: 'false'}).length"></span>
+						</p>
+					</div>
+					<div class="table__wrap">
+						<table id="toDoList" class="table table-striped">
+							<col style="width: 10%">
+							<col style="width: 35%">
+							<col style="width: 15%">
+							<col style="width: 20%">
+							<col style="width: 20%">
+							<thead>
+							<tr>
+								<th>Статус</th>
+								<th>
+									Задача
+									<button class="sort btn btn-default" title="Sort UP" ng-click="sortByName(false)">
+										<span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+									</button>
+									<button class="sort btn btn-default" title="Sort DOWN" ng-click="sortByName(true)">
+										<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+									</button>
+								</th>
+								<th>Исполнитель</th>
+								<th>
+									Дата
+									<button class="sort btn btn-default" title="Sort UP" ng-click="sortByDate(false)">
+										<span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+									</button>
+									<button class="sort btn btn-default" title="Sort DOWN" ng-click="sortByDate(true)">
+										<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+									</button>
+								</th>
+								<th>Управление</th>
+							</tr>
+							</thead>
+							<tbody show-more amount="1">
+							<!--<tr ng-repeat="item in todoArr track by item.id" ng-class="{ danger: item.fullDay }" data-row="{{ item.id }}">-->
+								<!--<td>-->
+									<!--<p ng-bind-template="{{ statesOfProgress[item.state] }}"></p>-->
+									<!--<button class="btn btn-default" ng-if="item.state == 'partial_done'">Подробнее</button>-->
+								<!--</td>-->
+								<!--<td ng-bind-template="{{ item.name }}"></td>-->
+								<!--<td ng-bind-template="{{ item.user }}"></td>-->
+								<!--<td ng-bind-template="{{ item.strDate }}"></td>-->
+								<!--<td>-->
+									<!--<button class="edit btn btn-success" ng-click="editOrCreate(item)" title="Edit">-->
+										<!--<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>-->
+									<!--</button>-->
+									<!--<button class="delete btn btn-danger" ng-click="delete(item)" title="Remove">-->
+										<!--<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>-->
+									<!--</button>-->
+								<!--</td>-->
+							<!--</tr>-->
+							</tbody>
+						</table>
+					</div>
+
+					<div class="col-md-3 add-btn__col">
+						<button class="add btn btn-info btn-lg" ng-click="editOrCreate()" title="Add new task">
+							Новая задача
+						</button>
+					</div>
+					<div class="col-md-3">
+
+					</div>
+					<div class="col-md-6 text-right">
+						<span>Фильтр: </span>
+						<div class="btn-group" role="group" aria-label="...">
+							<button
+									type="button"
+									class="btn btn-default"
+									ng-repeat="(key, val) in statesOfProgress"
+									ng-click="test(key)"
+									ng-bind-template="{{ val }}">
+							</button>
+							<button type="button" class="btn btn-default" ng-click="test()">Все</button>
+						</div>
+					</div>
+					<div class="col-md-4"></div>
+				</div>
+				<div class="row" ng-if="showForm">
+					<h2 ng-if="showAddForm">Новая задача</h2>
+					<h2 ng-if="!showAddForm">Редактирование задачи</h2>
+					<ng-form class="edit-form form" name="editForm" novalidate>
+						<div class="form-group">
+							<label for="name">Опишите задачу</label>
+							<input type="text"
+								   class="form-control"
+								   id="name"
+								   placeholder="Name"
+								   ng-model="currentItem.name"
+								   required/>
+						</div>
+						<div class="form-group">
+							<label for="date">Введите дату выполнения</label>
+							<input type="date"
+								   class="form-control"
+								   id="date"
+								   placeholder="Date"
+								   ng-model="currentItem.date"
+								   required/>
+						</div>
+						<div class="form-group">
+							<label for="users">Выберите исполнителя</label>
+							<select id="users" class="form-control" ng-model="currentItem.user" required>
+								<option ng-repeat="user in users" value="{{ user.name }}" ng-bind-template="{{ user.name }}"></option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="state">Статус выполнения</label>
+							<select id="state" class="form-control" ng-model="currentItem.state" required>
+								<option
+										ng-repeat="(key, val) in statesOfProgress"
+										value="{{ key }}"
+										ng-bind-template="{{ val }}">
+								</option>
+							</select>
+						</div>
+						<div class="form-group" ng-if="currentItem.state == 'partial_done'">
+							<label for="comment">Комментарий</label>
+							<textarea id="comment" class="form-control" rows="3" ng-model="currentItem.comment"></textarea>
+						</div>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" ng-model="currentItem.fullDay"> Задача на весь день?
+							</label>
+						</div>
+						<button class="btn btn-success" ng-click="saveEdit(currentItem)" title="Save" ng-disabled="editForm.$invalid">
+							<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+						</button>
+						<button class="btn btn-danger" ng-click="cancelEdit()" title="Cansel">
+							<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+						</button>
+					</ng-form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+    <script src="bundle.js"></script>
+</body>
+</html>
