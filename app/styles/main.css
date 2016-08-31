@@ -21,3 +21,40 @@
     width: 100%;
     margin-bottom: 20px;
 }
+.hide {
+    display: none;
+}
+.confirm__wrap {
+    z-index: 100;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0, .7);
+}
+.confirm__window {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    height: 250px;
+    padding: 30px;
+    border: 2px solid #eee;
+    border-radius: 6px;
+    background-color: #fff;
+    transform: translate(-50%,-50%);
+}
+.confirm__title {
+    margin: 20px 0;
+    text-align: center;
+    font-size: 2rem;
+}
+.confirm__btns {
+    text-align: center;
+    padding: 30px 0;
+}
+.confirm__btn--yes,
+.confirm__btn--no {
+    width: 80px;
+}

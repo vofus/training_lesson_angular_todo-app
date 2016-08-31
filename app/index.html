@@ -9,8 +9,9 @@
 	<link rel="stylesheet" type="text/css" href="styles/main.css">
 </head>
 <body>
-  
+
 	<div id="todoApp" ng-controller="MainCtrl">
+		<confirm></confirm>
 		<div class="container">
 			<div class="col-md-10 col-md-offset-1">
 				<div class="row" ng-if="!showForm">
@@ -54,7 +55,7 @@
 								<th>Управление</th>
 							</tr>
 							</thead>
-							<tbody show-more amount="1">
+							<tbody show-more amount="3">
 							<!--<tr ng-repeat="item in todoArr track by item.id" ng-class="{ danger: item.fullDay }" data-row="{{ item.id }}">-->
 								<!--<td>-->
 									<!--<p ng-bind-template="{{ statesOfProgress[item.state] }}"></p>-->
