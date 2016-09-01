@@ -1,7 +1,11 @@
 <tr ng-repeat="item in filtredArr track by item.id" ng-class="{ danger: item.fullDay }" data-row="{{ item.id }}">
-    <td>
+    <td class="status__cell">
+        <div class="notify__comment" ng-class="{ 'notify__comment--show': notifyTrigger }" ng-if="item.state == 'partial'">
+            <span class="notify__close" ng-click="showNotify()">X</span>
+            <p class="notify__text" ng-bind-template="{{ item.comment }}"></p>
+        </div>
         <p ng-bind-template="{{ statesOfProgress[item.state] }}"></p>
-        <button class="btn btn-default" ng-if="item.state == 'partial_done'">Подробнее</button>
+        <button class="btn btn-default" ng-if="item.state == 'partial'" ng-click="showNotify()">Подробнее</button>
     </td>
     <td ng-bind-template="{{ item.name }}"></td>
     <td ng-bind-template="{{ item.user }}"></td>

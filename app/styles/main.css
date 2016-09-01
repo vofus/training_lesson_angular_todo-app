@@ -58,3 +58,55 @@
 .confirm__btn--no {
     width: 80px;
 }
+.status__cell {
+    position: relative;
+}
+.notify__comment {
+    z-index: -1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    padding: 0;
+    text-align: center;
+    background-color: #eee;
+    border: 2px solid #999;
+    border-radius: 6px;
+    opacity: 0;
+    transition: all .3s ease-in-out;
+}
+.notify__close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: block;
+    width: 24px;
+    height: 24px;
+    background-color: #fff;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+}
+.notify__close:hover {
+    background-color: transparent;
+    color: #999;
+    border-color: #999;
+}
+.notify__text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 100%;
+    margin: 0;
+}
+.notify__comment--show {
+    z-index: 80;
+    width: 200px;
+    height: 150px;
+    padding: 20px;
+    opacity: 1;
+}

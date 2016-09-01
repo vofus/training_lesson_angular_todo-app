@@ -12,15 +12,15 @@ function ShowMoreDir() {
             btn.on('click', function(event) {
                 ++scope.currentPage;
                 if (scope.currentPage <= scope.allPages) {
-                    scope.filtredArr = scope.todoArr.slice(0, scope.amount * scope.currentPage);
+                    scope.filtredArr = scope.filteredTodos.slice(0, scope.amount * scope.currentPage);
                     scope.currentPage === scope.allPages ? btn.addClass('hide') : btn.removeClass('hide');
                     scope.$digest();
                 }
                 return;
             });
 
-            scope.$watch('todoArr', function(newVal, oldVal) {
-                scope.allPages = Math.ceil(scope.todoArr.length / scope.amount);
+            scope.$watch('filteredTodos', function(newVal, oldVal) {
+                scope.allPages = Math.ceil(scope.filteredTodos.length / scope.amount);
                 scope.filtredArr = newVal.slice(0, scope.amount * scope.currentPage);
                 scope.currentPage === scope.allPages ? btn.addClass('hide') : btn.removeClass('hide');
             }, true);
