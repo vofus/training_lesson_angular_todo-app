@@ -53,6 +53,7 @@ function MainCtrl($scope, $http, $filter, BASE_URL, dataFactory) {
                 break;
             }
             $scope.todoArr.push(item);
+            $scope.filteredTodos = angular.copy($scope.todoArr);
             console.log($scope.todoArr);
         },
         function(status) {
@@ -70,6 +71,7 @@ function MainCtrl($scope, $http, $filter, BASE_URL, dataFactory) {
                     break;
                 }
             }
+            $scope.filteredTodos = angular.copy($scope.todoArr);
             console.log($scope.todoArr);
             $scope.showForm = false;
         },
@@ -93,6 +95,7 @@ function MainCtrl($scope, $http, $filter, BASE_URL, dataFactory) {
                     break;
                 }
             }
+            $scope.filteredTodos = angular.copy($scope.todoArr);
         },
         function(status) {
             console.warn('Не удалось удалить элемент!', status);
