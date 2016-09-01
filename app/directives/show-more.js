@@ -4,6 +4,8 @@ function ShowMoreDir() {
             scope.amount = attributes['amount'];
             scope.currentPage = 1;
 
+            var tbody = document.getElementById('toDoList').getElementsByTagName('tbody')[0];
+
             var btn = angular.element('<button>');
             btn.addClass('btn btn-default btn__show-more');
             btn.text('Показать еще...');
@@ -18,6 +20,21 @@ function ShowMoreDir() {
                 }
                 return;
             });
+
+            tbody.onclick = function(event) {
+                var target = event.target,
+                    notify = null;
+                if (target.tagName == 'SPAN' && target.classList.contains('notify__close')) {
+                    target.parentElement.classList.remove('notify__comment--show');
+                    return false;
+                }
+                if (target.tagName == 'BUTTON' && target.classList.contains('notify__btn')) {
+                    notify = target.parentElement.getElementsByClassName('notify__comment')[0];
+                    notify.classList.add('notify__comment--show');
+                    return false;
+                }
+                return;
+            };
 
             scope.$watch('filteredTodos', function(newVal, oldVal) {
                 scope.allPages = Math.ceil(scope.filteredTodos.length / scope.amount);

@@ -7,7 +7,6 @@ function MainCtrl($scope, $http, $filter, BASE_URL, dataFactory) {
     $scope.showForm = false;
     $scope.showAddForm = false;
     $scope.confirmTrigger = false;
-    $scope.notifyTrigger = false;
     $scope.statesOfProgress = {
         'in_progress': 'В процессе',
         'partial': 'Частично',
@@ -82,9 +81,6 @@ function MainCtrl($scope, $http, $filter, BASE_URL, dataFactory) {
     $scope.showConfirm = function(item) {
         $scope.currentItem = angular.copy(item);
         $scope.confirmTrigger = true;
-    };
-    $scope.showNotify = function() {
-        $scope.notifyTrigger = !$scope.notifyTrigger;
     };
     $scope.delete = function(item) {
         var promiseObj = dataFactory.processingData('DELETE', BASE_URL + 'todos/' + item.id + '.json');
