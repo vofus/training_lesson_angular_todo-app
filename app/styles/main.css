@@ -96,17 +96,18 @@
     border-color: #999;
 }
 .notify__text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
     width: 100%;
-    margin: 0;
+    margin: 20px 0 0;
+    font-size: 0;
+    transition: all .3s ease-in-out;
 }
 .notify__comment--show {
     z-index: 80;
-    width: 200px;
+    width: 240px;
     min-height: 150px;
-    padding: 20px;
+    padding: 20px 15px;
     opacity: 1;
+}
+.notify__comment--show .notify__text {
+    font-size: 14px;
 }

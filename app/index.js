@@ -1,12 +1,14 @@
 var angular = require('angular');
 var app = angular.module('app',[]);
 
-var DataFactory = require('./factories/data-factory');
-var MainCtrl = require('./controllers/main-ctrl');
-var ShowMoreDir = require('./directives/show-more');
-var ConfirmWindow = require('./directives/confirm-window');
+var DataService = require('./services/data.service'),
+    DataFactory = require('./factories/data.factory'),
+    MainCtrl = require('./controllers/main.controller'),
+    ShowMoreDir = require('./directives/show-more'),
+    ConfirmWindow = require('./directives/confirm-window');
 
 app.constant('BASE_URL', 'https://todo-app-73d49.firebaseio.com/');
+app.factory('dataService', DataService);
 app.factory('dataFactory', DataFactory);
 app.controller('MainCtrl', MainCtrl);
 app.directive('showMore', ShowMoreDir);
