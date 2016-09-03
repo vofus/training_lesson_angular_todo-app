@@ -5,7 +5,6 @@ function ConfirmWindow() {
 
             scope.$watch('confirmTrigger', function(newVal, oldVal) {
                 trigger = newVal;
-                console.log(trigger);
                 if (!trigger) {
                     element.addClass('hide');
                 }
