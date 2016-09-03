@@ -10,17 +10,17 @@
 </head>
 <body>
 
-	<div id="todoApp" ng-controller="MainCtrl">
+	<div id="todoApp" ng-controller="MainCtrl as main">
 		<confirm></confirm>
 		<div class="container">
 			<div class="col-md-10 col-md-offset-1">
-				<div class="row" ng-if="!showForm">
+				<div class="row" ng-if="!main.showForm">
 					<div class="col-md-6">
 						<h1>My ToDo App</h1>
 					</div>
 					<div class="col-md-6">
 						<p class="counter text-right">
-							Незавершенных задач: <span ng-bind="(todoArr | filter : {state: '!done'}).length"></span>
+							Незавершенных задач: <span ng-bind="(main.todoArr | filter : {state: '!done'}).length"></span>
 						</p>
 					</div>
 					<div class="table__wrap">
@@ -35,50 +35,32 @@
 								<th>Статус</th>
 								<th>
 									Задача
-									<button class="sort btn btn-default" title="Sort UP" ng-click="sortByName(false)">
+									<button class="sort btn btn-default" title="Sort UP" ng-click="main.sortByName(false)">
 										<span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
 									</button>
-									<button class="sort btn btn-default" title="Sort DOWN" ng-click="sortByName(true)">
+									<button class="sort btn btn-default" title="Sort DOWN" ng-click="main.sortByName(true)">
 										<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
 									</button>
 								</th>
 								<th>Исполнитель</th>
 								<th>
 									Дата
-									<button class="sort btn btn-default" title="Sort UP" ng-click="sortByDate(false)">
+									<button class="sort btn btn-default" title="Sort UP" ng-click="main.sortByDate(false)">
 										<span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
 									</button>
-									<button class="sort btn btn-default" title="Sort DOWN" ng-click="sortByDate(true)">
+									<button class="sort btn btn-default" title="Sort DOWN" ng-click="main.sortByDate(true)">
 										<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
 									</button>
 								</th>
 								<th>Управление</th>
 							</tr>
 							</thead>
-							<tbody show-more amount="3">
-							<!--<tr ng-repeat="item in todoArr track by item.id" ng-class="{ danger: item.fullDay }" data-row="{{ item.id }}">-->
-								<!--<td>-->
-									<!--<p ng-bind-template="{{ statesOfProgress[item.state] }}"></p>-->
-									<!--<button class="btn btn-default" ng-if="item.state == 'partial_done'">Подробнее</button>-->
-								<!--</td>-->
-								<!--<td ng-bind-template="{{ item.name }}"></td>-->
-								<!--<td ng-bind-template="{{ item.user }}"></td>-->
-								<!--<td ng-bind-template="{{ item.strDate }}"></td>-->
-								<!--<td>-->
-									<!--<button class="edit btn btn-success" ng-click="editOrCreate(item)" title="Edit">-->
-										<!--<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>-->
-									<!--</button>-->
-									<!--<button class="delete btn btn-danger" ng-click="delete(item)" title="Remove">-->
-										<!--<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>-->
-									<!--</button>-->
-								<!--</td>-->
-							<!--</tr>-->
-							</tbody>
+							<tbody show-more amount="3"></tbody>
 						</table>
 					</div>
 
 					<div class="col-md-3 add-btn__col">
-						<button class="add btn btn-info btn-lg" ng-click="editOrCreate()" title="Add new task">
+						<button class="add btn btn-info btn-lg" ng-click="main.editOrCreate()" title="Add new task">
 							Новая задача
 						</button>
 					</div>
@@ -91,18 +73,18 @@
 							<button
 									type="button"
 									class="btn btn-default"
-									ng-repeat="(key, val) in statesOfProgress"
-									ng-click="stateFilter(key)"
+									ng-repeat="(key, val) in main.statesOfProgress"
+									ng-click="main.stateFilter(key)"
 									ng-bind-template="{{ val }}">
 							</button>
-							<button type="button" class="btn btn-default" ng-click="stateFilter()">Все</button>
+							<button type="button" class="btn btn-default" ng-click="main.stateFilter()">Все</button>
 						</div>
 					</div>
 					<div class="col-md-4"></div>
 				</div>
-				<div class="row" ng-if="showForm">
-					<h2 ng-if="showAddForm">Новая задача</h2>
-					<h2 ng-if="!showAddForm">Редактирование задачи</h2>
+				<div class="row" ng-if="main.showForm">
+					<h2 ng-if="main.showAddForm">Новая задача</h2>
+					<h2 ng-if="!main.showAddForm">Редактирование задачи</h2>
 					<ng-form class="edit-form form" name="editForm" novalidate>
 						<div class="form-group">
 							<label for="name">Опишите задачу</label>
@@ -110,7 +92,7 @@
 								   class="form-control"
 								   id="name"
 								   placeholder="Name"
-								   ng-model="currentItem.name"
+								   ng-model="main.currentItem.name"
 								   required/>
 						</div>
 						<div class="form-group">
@@ -119,38 +101,38 @@
 								   class="form-control"
 								   id="date"
 								   placeholder="Date"
-								   ng-model="currentItem.date"
+								   ng-model="main.currentItem.date"
 								   required/>
 						</div>
 						<div class="form-group">
 							<label for="users">Выберите исполнителя</label>
-							<select id="users" class="form-control" ng-model="currentItem.user" required>
-								<option ng-repeat="user in users" value="{{ user.name }}" ng-bind-template="{{ user.name }}"></option>
+							<select id="users" class="form-control" ng-model="main.currentItem.user" required>
+								<option ng-repeat="user in main.users" value="{{ user.name }}" ng-bind-template="{{ user.name }}"></option>
 							</select>
 						</div>
 						<div class="form-group">
 							<label for="state">Статус выполнения</label>
-							<select id="state" class="form-control" ng-model="currentItem.state" required>
+							<select id="state" class="form-control" ng-model="main.currentItem.state" required>
 								<option
-										ng-repeat="(key, val) in statesOfProgress"
+										ng-repeat="(key, val) in main.statesOfProgress"
 										value="{{ key }}"
 										ng-bind-template="{{ val }}">
 								</option>
 							</select>
 						</div>
-						<div class="form-group" ng-if="currentItem.state == 'partial'" required>
+						<div class="form-group" ng-if="main.currentItem.state == 'partial'" required>
 							<label for="comment">Комментарий</label>
-							<textarea id="comment" class="form-control" rows="3" ng-model="currentItem.comment"></textarea>
+							<textarea id="comment" class="form-control" rows="3" ng-model="main.currentItem.comment"></textarea>
 						</div>
 						<div class="checkbox">
 							<label>
-								<input type="checkbox" ng-model="currentItem.fullDay"> Задача на весь день?
+								<input type="checkbox" ng-model="main.currentItem.fullDay"> Задача на весь день?
 							</label>
 						</div>
-						<button class="btn btn-success" ng-click="saveEdit(currentItem)" title="Save" ng-disabled="editForm.$invalid">
+						<button class="btn btn-success" ng-click="main.saveEdit(currentItem)" title="Save" ng-disabled="editForm.$invalid">
 							<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
 						</button>
-						<button class="btn btn-danger" ng-click="cancelEdit()" title="Cansel">
+						<button class="btn btn-danger" ng-click="main.cancelEdit()" title="Cansel">
 							<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
 						</button>
 					</ng-form>
