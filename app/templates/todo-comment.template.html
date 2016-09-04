@@ -1,7 +1,7 @@
 <div>
     <div class="notify__comment" ng-if="item.state == 'partial'">
         <span class="notify__close">X</span>
-        <p class="notify__text" ng-bind-template="{{ item.comment }}"></p>
+        <p class="notify__text" ng-bind-template="{{ ::item.comment }}"></p>
     </div>
     <button class="btn btn-default notify__btn" ng-if="item.state == 'partial'">Подробнее</button>
 </div>

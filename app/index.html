@@ -17,13 +17,13 @@
 		</confirm>
 		<div class="container">
 			<div class="col-md-10 col-md-offset-1">
-				<div class="row" ng-if="!main.showForm">
+				<div class="row" ng-show="!main.showForm">
 					<div class="col-md-6">
 						<h1>My ToDo App</h1>
 					</div>
 					<div class="col-md-6">
 						<p class="counter text-right">
-							Незавершенных задач: <span ng-bind="(main.todoArr | filter : {state: '!done'}).length"></span>
+							Незавершенных задач: <span ng-bind="::(main.todoArr | filter : {state: '!done'}).length"></span>
 						</p>
 					</div>
 					<div class="table__wrap">
@@ -59,19 +59,14 @@
 							</tr>
 							</thead>
 							<tbody>
-								<tr ng-repeat="item in main.trimmedArr track by item.id" ng-class="{ danger: item.fullDay }" data-row="{{ item.id }}">
+								<tr ng-repeat="item in ::main.trimmedArr track by item.id" ng-class="{ danger: item.fullDay }">
 									<td class="status__cell">
 										<p ng-bind-template="{{ ::main.statesOfProgress[item.state] }}"></p>
 										<todo-comment item="item"></todo-comment>
-										<!--<div class="notify__comment" ng-if="item.state == 'partial'">-->
-											<!--<span class="notify__close">X</span>-->
-											<!--<p class="notify__text" ng-bind-template="{{ item.comment }}"></p>-->
-										<!--</div>-->
-										<!--<button class="btn btn-default notify__btn" ng-if="item.state == 'partial'">Подробнее</button>-->
 									</td>
-									<td ng-bind-template="{{ item.name }}"></td>
-									<td ng-bind-template="{{ item.user }}"></td>
-									<td ng-bind-template="{{ item.strDate }}"></td>
+									<td ng-bind-template="{{ ::item.name }}"></td>
+									<td ng-bind-template="{{ ::item.user }}"></td>
+									<td ng-bind-template="{{ ::item.strDate }}"></td>
 									<td>
 										<button class="edit btn btn-success" ng-click="main.editOrCreate(item)" title="Edit">
 											<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
@@ -100,18 +95,18 @@
 							<button
 									type="button"
 									class="btn btn-default"
-									ng-repeat="(key, val) in main.statesOfProgress"
+									ng-repeat="(key, val) in ::main.statesOfProgress"
 									ng-click="main.stateFilter(key)"
-									ng-bind-template="{{ val }}">
+									ng-bind-template="{{ ::val }}">
 							</button>
 							<button type="button" class="btn btn-default" ng-click="main.stateFilter()">Все</button>
 						</div>
 					</div>
 					<div class="col-md-4"></div>
 				</div>
-				<div class="row" ng-if="main.showForm">
-					<h2 ng-if="main.showAddForm">Новая задача</h2>
-					<h2 ng-if="!main.showAddForm">Редактирование задачи</h2>
+				<div class="row" ng-show="main.showForm">
+					<h2 ng-show="main.showAddForm">Новая задача</h2>
+					<h2 ng-show="!main.showAddForm">Редактирование задачи</h2>
 					<ng-form class="edit-form form" name="editForm" novalidate>
 						<div class="form-group">
 							<label for="name">Опишите задачу</label>
@@ -134,16 +129,16 @@
 						<div class="form-group">
 							<label for="users">Выберите исполнителя</label>
 							<select id="users" class="form-control" ng-model="main.currentItem.user" required>
-								<option ng-repeat="user in main.users" value="{{ user.name }}" ng-bind-template="{{ user.name }}"></option>
+								<option ng-repeat="user in ::main.users" value="{{ ::user.name }}" ng-bind-template="{{ ::user.name }}"></option>
 							</select>
 						</div>
 						<div class="form-group">
 							<label for="state">Статус выполнения</label>
 							<select id="state" class="form-control" ng-model="main.currentItem.state" required>
 								<option
-										ng-repeat="(key, val) in main.statesOfProgress"
+										ng-repeat="(key, val) in ::main.statesOfProgress"
 										value="{{ key }}"
-										ng-bind-template="{{ val }}">
+										ng-bind-template="{{ ::val }}">
 								</option>
 							</select>
 						</div>
