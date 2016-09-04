@@ -1,9 +1,25 @@
-function ConfirmWindow() {
-    return {
-        link: function(scope, element, attributes) {
+(function() {
+    'use strict';
+
+    function ConfirmWindow() {
+        var directive = {
+            link: linkFunc,
+            scope: {
+                confirmTrigger: '=',
+                cancelEdit: '&',
+                remove: '&'
+            },
+            restrict: "E",
+            replace: true,
+            templateUrl: '../templates/confirm-window.template.html'
+        };
+
+        return directive;
+
+        function linkFunc(scope, element) {
             var trigger;
 
-            scope.$watch('confirmTrigger', function(newVal, oldVal) {
+            scope.$watch('confirmTrigger', function(newVal) {
                 trigger = newVal;
                 if (!trigger) {
                     element.addClass('hide');
@@ -12,11 +28,8 @@ function ConfirmWindow() {
                     element.removeClass('hide');
                 }
             });
-        },
-        restrict: "EA",
-        replace: false,
-        templateUrl: '../templates/confirm-window-template.html'
+        }
     }
-}
 
-module.exports = ConfirmWindow;
+    module.exports = ConfirmWindow;
+})();

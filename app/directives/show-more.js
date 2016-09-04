@@ -2,113 +2,45 @@
     'use strict';
 
     function ShowMoreDir() {
+
         var directive = {
             link: linkFunc,
-            restrict: "A",
-            replace: false,
+            restrict: "E",
+            replace: true,
             scope: {
-                filteredTodos: '='
+                filteredTodos: '=',
+                trimmedArr: '='
             },
-            templateUrl: '../templates/table-row-template.html'
+            templateUrl: '../templates/show-more.template.html'
         };
 
         return directive;
 
         function linkFunc(scope, element, attributes) {
-            scope.amount = attributes['amount'];
+            var btn = element;
+
+            scope.amount = parseInt(attributes['amount'], 10);
             scope.currentPage = 1;
 
-            var tbody = document.getElementById('toDoList').getElementsByTagName('tbody')[0];
-
-            var btn = angular.element('<button>');
-            btn.addClass('btn btn-default btn__show-more');
-            btn.text('Показать еще...');
-            element.parent().parent().append(btn);
-
-            btn.on('click', function(event) {
-                ++scope.currentPage;
+            btn.on('click', function() {
+                scope.currentPage++;
                 if (scope.currentPage <= scope.allPages) {
-                    scope.filtredArr = scope.filteredTodos.slice(0, scope.amount * scope.currentPage);
+                    scope.trimmedArr = scope.filteredTodos.slice(0, scope.amount * scope.currentPage);
                     scope.currentPage === scope.allPages ? btn.addClass('hide') : btn.removeClass('hide');
-                    scope.$digest();
+                    scope.$apply();
                 }
                 return;
             });
 
-            tbody.onclick = function(event) {
-                var target = event.target,
-                    notify = null;
-                if (target.tagName == 'SPAN' && target.classList.contains('notify__close')) {
-                    target.parentElement.classList.remove('notify__comment--show');
-                    return false;
-                }
-                if (target.tagName == 'BUTTON' && target.classList.contains('notify__btn')) {
-                    notify = target.parentElement.getElementsByClassName('notify__comment')[0];
-                    notify.classList.add('notify__comment--show');
-                    return false;
-                }
-                return;
-            };
-
             scope.$watch('filteredTodos', function(newVal, oldVal) {
                 scope.allPages = Math.ceil(scope.filteredTodos.length / scope.amount);
-                scope.filtredArr = newVal.slice(0, scope.amount * scope.currentPage);
+                scope.trimmedArr = newVal.slice(0, scope.amount * scope.currentPage);
                 scope.currentPage === scope.allPages ? btn.addClass('hide') : btn.removeClass('hide');
+                console.log('filtred array: ', scope.filteredTodos);
+                console.log('trimmed array: ', scope.trimmedArr);
             }, true);
         }
     }
 
     module.exports = ShowMoreDir;
 })();
-
-// function ShowMoreDir() {
-//     return {
-//         link: function(scope, element, attributes) {
-//             scope.amount = attributes['amount'];
-//             scope.currentPage = 1;
-//
-//             var tbody = document.getElementById('toDoList').getElementsByTagName('tbody')[0];
-//
-//             var btn = angular.element('<button>');
-//             btn.addClass('btn btn-default btn__show-more');
-//             btn.text('Показать еще...');
-//             element.parent().parent().append(btn);
-//
-//             btn.on('click', function(event) {
-//                 ++scope.currentPage;
-//                 if (scope.currentPage <= scope.allPages) {
-//                     scope.filtredArr = filteredTodos.slice(0, scope.amount * scope.currentPage);
-//                     scope.currentPage === scope.allPages ? btn.addClass('hide') : btn.removeClass('hide');
-//                     scope.$digest();
-//                 }
-//                 return;
-//             });
-//
-//             tbody.onclick = function(event) {
-//                 var target = event.target,
-//                     notify = null;
-//                 if (target.tagName == 'SPAN' && target.classList.contains('notify__close')) {
-//                     target.parentElement.classList.remove('notify__comment--show');
-//                     return false;
-//                 }
-//                 if (target.tagName == 'BUTTON' && target.classList.contains('notify__btn')) {
-//                     notify = target.parentElement.getElementsByClassName('notify__comment')[0];
-//                     notify.classList.add('notify__comment--show');
-//                     return false;
-//                 }
-//                 return;
-//             };
-//
-//             scope.$watch('filteredTodos', function(newVal, oldVal) {
-//                 scope.allPages = Math.ceil(filteredTodos.length / scope.amount);
-//                 scope.filtredArr = newVal.slice(0, scope.amount * scope.currentPage);
-//                 scope.currentPage === scope.allPages ? btn.addClass('hide') : btn.removeClass('hide');
-//             }, true);
-//         },
-//         restrict: "A",
-//         replace: false,
-//         templateUrl: '../templates/table-row-template.html'
-//     }
-// }
-//
-// module.exports = ShowMoreDir;

@@ -100,6 +100,7 @@
                 });
 
             function transformData() {
+                console.info('Data update on server', item);
                 for (var i = 0; i < vm.store.data.todoArr.length; i++) {
                     if (vm.store.data.todoArr[i].id === editTodo.id) {
                         vm.store.data.todoArr.splice(i, 1, editTodo);

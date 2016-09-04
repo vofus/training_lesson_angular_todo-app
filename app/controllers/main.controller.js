@@ -8,6 +8,7 @@
 
         vm.todoArr = [];
         vm.filteredTodos = [];
+        vm.trimmedArr = [];
         vm.users = [];
         vm.currentItem = {};
         vm.showForm = false;
@@ -45,8 +46,8 @@
             }
         }
 
-        function remove(item) {
-            dataFactory.deleteItem(item)
+        function remove() {
+            dataFactory.deleteItem(vm.currentItem)
                 .then(completeDelete);
 
             function completeDelete(data) {
@@ -65,7 +66,7 @@
                 .then(completePosting);
 
             function completePosting(data) {
-                scope.filteredTodos = angular.copy(scope.todoArr);
+                vm.filteredTodos = angular.copy(vm.todoArr);
             }
         }
 
@@ -91,10 +92,10 @@
             item.strDate = $filter('date')(item.date, 'dd.MM.yyyy');
 
             if (angular.isDefined(item.id)) {
-                vm.update(item);
+                update(item);
             } else {
                 item.done = false;
-                vm.create(item);
+                create(item);
             }
             vm.showForm = false;
         }
@@ -105,11 +106,11 @@
             vm.confirmTrigger = false;
         }
 
-        function sortByName(revers) {
+        function sortByName(reverse) {
             vm.filteredTodos = $filter('orderBy')(vm.todoArr, 'name', reverse);
         }
 
-        function sortByDate(revers) {
+        function sortByDate(reverse) {
             vm.filteredTodos = $filter('orderBy')(vm.todoArr, 'date', reverse);
         }
 
