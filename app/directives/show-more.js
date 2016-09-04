@@ -25,7 +25,9 @@
             btn.on('click', function() {
                 scope.currentPage++;
                 if (scope.currentPage <= scope.allPages) {
-                    scope.trimmedArr = scope.filteredTodos.slice(0, scope.amount * scope.currentPage);
+                    // scope.trimmedArr = scope.filteredTodos.slice(0, scope.amount * scope.currentPage);
+                    scope.partArr = scope.filteredTodos.slice(scope.amount * (scope.currentPage-1), scope.amount * scope.currentPage);
+                    scope.trimmedArr = scope.trimmedArr.concat(scope.partArr);
                     scope.currentPage === scope.allPages ? btn.addClass('hide') : btn.removeClass('hide');
                     scope.$apply();
                 }
